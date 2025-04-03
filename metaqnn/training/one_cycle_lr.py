@@ -144,7 +144,7 @@ class OneCycleLR(Callback):
 
         self.epochs = self.params['epochs']
         self.batch_size = self.params.get('batch_size',50)
-        self.samples = self.params('samples',45000)
+        self.samples = self.params.get('samples',45000)
         self.steps = self.params['steps']
 
         if self.steps is not None:
@@ -159,7 +159,11 @@ class OneCycleLR(Callback):
         self.mid_cycle_id = int(self.num_iterations * ((1. - self.end_percentage)) / float(2))
 
         self._reset()
-        K.set_value(self.model.optimizer.lr, self.compute_lr())
+        if hasattr(self.model.optimizer, 'lr'):
+            K.set_value(self.model.optimizer.lr, current_lr)
+        else:
+            K.set_value(self.model.optimizer.learning_rate, current_lr)
+
 
         if self._update_momentum:
             if not hasattr(self.model.optimizer, 'momentum'):
