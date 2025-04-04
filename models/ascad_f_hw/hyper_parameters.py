@@ -29,7 +29,7 @@ DATA_ROOT = BULK_ROOT + 'data/'
 
 # Trained model dir
 TRAINED_MODEL_DIR = BULK_ROOT + 'trained_models'
-DB_FILE = DATA_ROOT + 'ascad-fixed.h5'
+DB_FILE = DATA_ROOT + 'ASCAD.h5'
 
 (TRAIN_TRACES, TRAIN_LABELS), (ATTACK_TRACES, ATTACK_LABELS), ATTACK_PLAINTEXT = data_loader.load_hd5_hw_model(
     DB_FILE,
